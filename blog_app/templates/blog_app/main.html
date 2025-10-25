@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}" />
+</head>
+
+<body>
+    <div class="blur-overlay">
+        <div class="create-container">
+            {% include "includes/create.html" %}
+        </div>
+        <div class="hand-container">
+            {% include "includes/hand.html" %}
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div class="header-text">Son Paylaşımlar ~</div>
+
+        <div class="center-content">
+            {% if posts %}
+            {% for post in posts %}
+            <div class="post">
+                <p><small>{{ post.created_at|date:'d M Y H:i' }}</small></p>
+                <div>{{ post.content|linebreaksbr|safe }}</div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>Hiç paylaşım yok.</p>
+            {% endif %}
+
+            <a href="{% url 'blog_app:new_post' %}" style="text-decoration: none; color: inherit;">
+                <button class="write-button">Yazacaklarım Var !</button>
+            </a>
+        </div>
+
+        <div class="side-left">
+            {% include "includes/art.html" %}
+        </div>
+
+        <div class="side-right">
+            {% include "includes/butterfly.html" %}
+        </div>
+    </div>
+
+    <script src="{% static 'main.js' %}"></script>
+</body>
+
+</html>

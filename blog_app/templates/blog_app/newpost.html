@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Gönderi</title>
+    <link rel="stylesheet" href="{% static 'newpost.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <p>Yeni yazını okumak için sabırsızlanıyoruz!</p>
+            <button class="button" type="button" id="cancel" onclick="openModal()">Vazgeçtim.</button>
+            <button class="button" id="submitBtn" type="button">Gönder!</button>
+        </div>
+        <div class="right-panel">
+            <form id="postForm" method="POST" action="{% url 'blog_app:new_post' %}">
+                {% csrf_token %}
+                <div class="form-box" id="title">
+                    {{ form.title }}
+                </div>
+                <div class="form-box" id="content">
+                    {{ form.content }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <p>
+                Merak etme!<br>
+                İlham bazen gelir, bazen kaçar; hatta bir ışık misali yanıp sönebilir.
+                Tekrar yazmaya karar verdiğinde biz onu okumak için yine burada olacağız.<br>
+                Ama yazmaya devam etmek istersen hemen aşağıdaki butonlardan da <strong>devam et</strong>e
+                basabilirsin.<br>
+                Ya da <strong>Eminim</strong> butonuna basarak form sayfasından çıkabilirsin :) <br><br>
+                Kaleminle kal.
+            </p>
+            <div class="modal-buttons">
+                <button id="keepWritin" onclick="closeModal()">Yazmaya Devam Et</button>
+                <button id="sureCancel">Eminim</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'newpost.js' %}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Eminim butonuna basıldığında anasayfaya yönlendirme
+            const cancelBtn = document.getElementById("sureCancel");
+            if (cancelBtn) {
+                cancelBtn.addEventListener("click", () => {
+                    window.location.href = "{% url 'blog_app:main_page' %}";
+                });
+            }
+
+            // Gönder butonu davranışı
+            const submitBtn = document.getElementById("submitBtn");
+            const postForm = document.getElementById("postForm");
+
+            if (submitBtn && postForm) {
+                submitBtn.addEventListener("click", () => {
+                    postForm.submit();  // formu normal şekilde gönder
+                });
+            }
+        });
+
+        function openModal() {
+            document.getElementById("modal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
