@@ -1,4 +1,4 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -23,16 +23,20 @@
         <div class="header-text">Son Paylaşımlar ~</div>
 
         <div class="center-content">
-            {% if posts %}
-            {% for post in posts %}
-            <div class="post">
-                <p><small>{{ post.created_at|date:'d M Y H:i' }}</small></p>
-                <div>{{ post.content|linebreaksbr|safe }}</div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <p>Hiç paylaşım yok.</p>
-            {% endif %}
+            <?php if(!empty($posts)): ?>
+                <?php foreach ($posts as $post): ?>
+                    <div class="post">
+                        <p><small>
+                            <?= date('d M H Y:i' , strtotime($post["content"])); ?>
+                        </small></p>
+                        <div>
+                            <?= nl2br(htmlspecialchars($post["content"]));?>
+                        </div>
+                    </div>
+                <?php endforeach?>
+            <?php else:?>
+                <p>Hiç paylaşım yok.</p>
+            <?php endif;?>
 
             <a href="{% url 'blog_app:new_post' %}" style="text-decoration: none; color: inherit;">
                 <button class="write-button">Yazacaklarım Var !</button>
@@ -40,11 +44,11 @@
         </div>
 
         <div class="side-left">
-            {% include "includes/art.html" %}
+             <!--gerekli php kodları gelecek-->
         </div>
 
         <div class="side-right">
-            {% include "includes/butterfly.html" %}
+            <!--gerekli php kodları gelecek-->
         </div>
     </div>
 

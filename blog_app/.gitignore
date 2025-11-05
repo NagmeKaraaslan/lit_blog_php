@@ -1,7 +1,28 @@
-__pycache__/
-*.pyc
+# WAMP & PHP
+/vendor/
+/node_modules/
+.env                  
 *.sqlite3
 .env
 /media/
 static/
 venv/
+error_log
+/tmp/
+
+# Sistem dosyaları
+Thumbs.db
+*~
+# IDE / Editor
+.vscode/              
+.idea/
+# Cache ve loglar
+*.log
+*.cache
+*.tmp, *.bak, *.swp
+# Kompiled veya geçici dosyalar
+*.zip, *.tar, *.gz, *.rar
+composer.lock
+# Database veya local config
+*.sql, *.sqlite
+/config/db_local.php

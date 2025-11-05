@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,13 +16,21 @@
             <button class="button" id="submitBtn" type="button">Gönder!</button>
         </div>
         <div class="right-panel">
+
+       <!--formun kötü niyetli bir site tarafından admin fark etmeden gönderilmesini engellemek için kullanılır : csrf token--> 
+            <?php
+            session_start();
+            if(empty($_SESSION['csrf_token'])) {
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            }
+            ?>
             <form id="postForm" method="POST" action="{% url 'blog_app:new_post' %}">
                 {% csrf_token %}
                 <div class="form-box" id="title">
-                    {{ form.title }}
+                    <!--ilgili php kodu-->
                 </div>
                 <div class="form-box" id="content">
-                    {{ form.content }}
+                     <!--ilgili php kodu-->
                 </div>
             </form>
         </div>
@@ -47,7 +54,6 @@
         </div>
     </div>
 
-    <script src="{% static 'newpost.js' %}" defer></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Eminim butonuna basıldığında anasayfaya yönlendirme
