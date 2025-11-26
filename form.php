@@ -18,21 +18,23 @@
         <div class="right-panel">
 
        <!--formun kötü niyetli bir site tarafından admin fark etmeden gönderilmesini engellemek için kullanılır : csrf token--> 
-            <?php
-            session_start();
-            if(empty($_SESSION['csrf_token'])) {
-                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            }
-            ?>
-            <form id="postForm" method="POST" action="{% url 'blog_app:new_post' %}">
-                {% csrf_token %}
-                <div class="form-box" id="title">
-                    <!--ilgili php kodu-->
+            <!-- <form id="postForm" method="POST" action="{% url 'blog_app:new_post' %}"> -->
+
+                    <form action="main.php" method="POST">
+
+                        <label for="titleArea<">Başlık:</label>
+                        <input type="text" name="titleArea" id="titleArea" placeholder="Başlık:">
+                        <label for="contentArea">İçerik:</label>
+                        <textarea name="contentArea" for="contentArea" rows="10" required></textarea>
+
+                        <?php
+                        session_start();
+                        if(empty($_SESSION['csrf_token'])) {
+                            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+                        }
+                        ?>
+                    </form>
                 </div>
-                <div class="form-box" id="content">
-                     <!--ilgili php kodu-->
-                </div>
-            </form>
         </div>
     </div>
 
@@ -60,7 +62,7 @@
             const cancelBtn = document.getElementById("sureCancel");
             if (cancelBtn) {
                 cancelBtn.addEventListener("click", () => {
-                    window.location.href = "{% url 'blog_app:main_page' %}";
+                    window.location.href = "main.php";
                 });
             }
 
