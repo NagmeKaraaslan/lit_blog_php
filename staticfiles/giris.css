@@ -1,3 +1,42 @@
-body{
-    background-color:  #FFECBC;
+* {
+  box-sizing: border-box;
 }
+body{
+    display:grid;
+    background-color:  #FFECBC;
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 0;
+}
+
+.left object {
+    position: relative;
+    top: 20px;
+    left: 10px;
+}
+
+.formbox {
+    background-color: #F5E9C9;
+    border-top-right-radius:12%;
+    border-bottom-left-radius:12% ;
+    margin-top: 60px;
+    margin-left: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.right object {
+    position: relative;
+    top: -20px;
+    right: 10px;
+}
+

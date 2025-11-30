@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="staticfiles/giris.css"
+    <link rel="stylesheet" href="staticfiles/giris.css">
 </head>
 <body>
-    <main class="formbox">
-        <form action="giriskarsilama.php" method="get" id="kayit">
-            <label for="kullanici">Kullanıcı Adınız:</label>
-            <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız">
-            <label for="sifre">Şifreniz:</label>
-            <input type="password" id="sifre" name="sifre" placeholder="Şifre">
-            <input type="submit" name="oany" value="Giriş">
-        </form>
-    </main>
+
+    <div class="container">
+        <div class="left">
+            <object data="staticfiles/images/image.6.svg"></object>
+        </div>
+        <div class="formbox">
+            <form action="giriskarsilama.php" method="get">
+                <label for="kullanici">Kullanıcı Adınız:</label>
+                <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız">
+                <label for="sifre">Şifreniz:</label>
+                <input type="password" id="sifre" name="sifre" placeholder="Şifre">
+                <input type="submit" name="oany" value="Giriş">
+            </form>
+        </div>
+
+        <div class="right">
+            <object data="staticfiles/images/image7.svg"></object>
+        </div>
+    </div>
 </body>
 </html>

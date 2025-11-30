@@ -10,21 +10,20 @@
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $kullanici_adi = htmlspecialchars($_POST['kullanici'] ?? 'Bilinmiyor');
+        $kullanici = htmlspecialchars($_POST['kullanici'] ?? 'Bilinmiyor');
         
-        echo "<p>Giriş başarılı. Sayın **$kullanici**.</p>";
-
-        // Diğer form verilerini de burada yazdırabilirsiniz
-        // $sifre = htmlspecialchars($_POST['sifre'] ?? 'Gizli');
-        // echo "<p>Şifreniz: $sifre</p>"; 
+        header("Refresh: 3; url=kayit.html");
+        echo "<p><a href='kayit.html'>Kayıt Formu</a></p>";
     } else {
         echo "<p>Form verileri alınamadı.</p>";
     }
+
+    
+
     ?>
 
-    <a href="index.php" class="anasyf_btn">
-        Anasayfaya Git
+    <a href="posts.php">
+        Post sayfasına git.
     </a>
-
 </body>
 </html>

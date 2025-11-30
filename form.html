@@ -12,29 +12,16 @@
     <div class="container">
         <div class="left-panel">
             <p>Yeni yazını okumak için sabırsızlanıyoruz!</p>
-            <button class="button" type="button" id="cancel" onclick="openModal()">Vazgeçtim.</button>
-            <button class="button" id="submitBtn" type="button">Gönder!</button>
         </div>
         <div class="right-panel">
-
-       <!--formun kötü niyetli bir site tarafından admin fark etmeden gönderilmesini engellemek için kullanılır : csrf token--> 
-            <!-- <form id="postForm" method="POST" action="{% url 'blog_app:new_post' %}"> -->
-
-                    <form action="main.php" method="POST">
-
-                        <label for="titleArea<">Başlık:</label>
-                        <input type="text" name="titleArea" id="titleArea" placeholder="Başlık:">
-                        <label for="contentArea">İçerik:</label>
-                        <textarea name="contentArea" for="contentArea" rows="10" required></textarea>
-
-                        <?php
-                        session_start();
-                        if(empty($_SESSION['csrf_token'])) {
-                            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-                        }
-                        ?>
-                    </form>
-                </div>
+            <form action="posts.php" method="POST">
+                <label for="titleArea">Başlık:</label>
+                <input type="text" name="titleArea" id="titleArea" placeholder="Başlık:">
+                <label for="contentArea">İçerik:</label>
+                <input name="content" for="contentArea" rows="10" required></input>
+                <button class="button" type="button" id="cancel" onclick="openModal()">Vazgeçtim.</button>
+                <button class="button" id="submitBtn" type="submit">Gönder!</button>
+            </form>
         </div>
     </div>
 
