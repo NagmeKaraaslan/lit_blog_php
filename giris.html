@@ -8,23 +8,32 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="left">
-            <object data="staticfiles/images/image.6.svg"></object>
-        </div>
-        <div class="formbox">
-            <form action="giriskarsilama.php" method="get">
-                <label for="kullanici">Kullanıcı Adınız:</label>
-                <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız">
-                <label for="sifre">Şifreniz:</label>
-                <input type="password" id="sifre" name="sifre" placeholder="Şifre">
-                <input type="submit" name="oany" value="Giriş">
-            </form>
-        </div>
+    <div class="main_container">
+        <object data="staticfiles/images/image.6.svg"></object>
 
-        <div class="right">
-            <object data="staticfiles/images/image7.svg"></object>
+        <div class="loginbox">
+            <div class="box-left">
+                <h1>Tekrardan Hoşgeldin !</h1>
+                <p>Arkadaşlarının yazılarına da göz atmayı unutma !</p>
+               <button type="submit" form="login" class="loginButton">Giriş Yap</button> 
+            </div>
+            
+            <div class="box-right">
+                <p class="boxtitle">Yeni yazılarını görmek için sabırsızlanıyoruz!</p>
+                <form id="login" action="php/giriskarsilama.php" method="get">
+                    <div class="inputs">
+                        <label for="kullanici">Kullanıcı Adınız:</label>
+                        <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız">
+                    </div>
+                    
+                    <div class="inputs">
+                        <label for="sifre">Şifreniz:</label>
+                        <input type="password" id="sifre" name="sifre" placeholder="Şifre">
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+        <object data="staticfiles/images/image7.svg"></object>
+    </div> 
 </body>
 </html>

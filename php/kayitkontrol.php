@@ -44,7 +44,7 @@ $sifre = password_hash(($_POST["sifre1"]), PASSWORD_DEFAULT);
 var_dump($_POST);
 
 try {
-  $vt = new PDO("mysql:dbname=site;host=localhost;charset=utf8","root", "");
+  $vt = new PDO("mysql:dbname=litblog;host=localhost;charset=utf8","root", "");
   $vt->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
   echo $e->getMessage();
@@ -52,7 +52,7 @@ try {
 
 
 
-$sql = "INSERT INTO uye (ad, soyad, kullaniciAd, mail, sifre) values (:ad, :soyad, :kullaniciAd, :mail, :sifre)";
+$sql = "INSERT INTO uye (ad, soyad, kullaniciAd, mail, sifre, cinsiyet) values (:ad, :soyad, :kullaniciAd, :mail, :sifre, :cinsiyet)";
 $ifade = $vt->prepare($sql);
 $ifade->execute(
     [
@@ -60,6 +60,7 @@ $ifade->execute(
         ":soyad"     => $_POST["soyad"],
         ":kullaniciAd" => $_POST["kullanici"],
         ":mail"    => $_POST["mail"],
+        ":cinsiyet" => $_POST["gen"],
         ":sifre"     => $sifre
     ]
 );
