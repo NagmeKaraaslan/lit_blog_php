@@ -104,3 +104,9 @@ overflow: hidden;
     font-size: 0,9em;
 }
 
+.inputs{
+    p {
+    position: relative; /* z-index'in çalışması için gereklidir */
+    z-index: 200;     /* Diğer her şeyden daha yüksek bir değer verin */
+}
+}

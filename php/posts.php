@@ -35,6 +35,9 @@ catch (\PDOException $e){
     </header>
 
     <main class="feed">
+        <div class="panel1">
+            <object data="staticfiles/images/image8.svg"></objectdata></object>
+        </div>
         <?php if(!empty($posts)):?>
             <?php foreach ($posts as $post):?>
 

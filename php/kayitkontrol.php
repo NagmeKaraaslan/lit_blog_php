@@ -7,6 +7,14 @@ if(empty($_POST["kullanici"])) {
     exit;
 }
 
+$kullanici = trim($_POST["kullanici"]);
+if(strlen($kullanici < 3)){
+  echo "Kullanıcı isminiz 3karakterden fazla olamlı.";
+  header("Refresh: 3; yrl=kayit.html");
+  echo "<p><a href='kayitform.html'>Kayıt Formu</a></p>";
+  exit;
+}
+
 //eposta kontrolu
 
 if(!filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL)){

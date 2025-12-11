@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yeni Gönderi</title>
-    <link rel="stylesheet" href="{% static 'newpost.css' %}">
+    <link rel="stylesheet" href="staticfiles/newpost.css">
 </head>
 
 <body>
@@ -45,23 +45,13 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Eminim butonuna basıldığında anasayfaya yönlendirme
             const cancelBtn = document.getElementById("sureCancel");
             if (cancelBtn) {
                 cancelBtn.addEventListener("click", () => {
-                    window.location.href = "main.php";
+                    window.location.href = "posts.php"; 
                 });
             }
-
-            // Gönder butonu davranışı
-            const submitBtn = document.getElementById("submitBtn");
-            const postForm = document.getElementById("postForm");
-
-            if (submitBtn && postForm) {
-                submitBtn.addEventListener("click", () => {
-                    postForm.submit();  // formu normal şekilde gönder
-                });
-            }
+            
         });
 
         function openModal() {
