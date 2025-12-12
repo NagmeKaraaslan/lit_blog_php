@@ -7,33 +7,48 @@
     <link rel="stylesheet" href="staticfiles/kayit.css">
 </head>
 <body>
-    <main class="kayitform">
-        <form action="php/kayitkontrol.php" method="post">
-            <label for="ad">Adınız:</label>
-            <input type="text" id="ad" name="ad" placeholder="adınız">
-            <label for="soyad">Soyadınız:</label>
-            <input type="text" id="soyad" name="soyad" placeholder="soyadınız">
-            <p>Cinsiyetiniz:</p>
-            <label for="gen1">Kadın:</label>
-            <input type="radio" id="gen1" name="gen" value="XX">
-            <label for="gen2">Erkek</label>
-            <input type="radio" id="gen2" name="gen" value="XY">
-            <label for="gen3">Diğer</label>
-            <input type="radio" id="gen3" name="gen" value="XYX">
-            <label for="kullanici">Kullanıcı Adınız:</label>
-            <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız">
-            <label for="eposta">E-postanız:</label>
-            <input id="eposta" name="mail" placeholder="epostanızı yazın">
-            <label for="sifre1">Şifreniz:</label>
-            <input type="password" id="sifre1" name="sifre1" placeholder="Şifre">
-            <label for="sifre2">Şifrenizi tekrar giriniz:</label>
-            <input type="password" id="sifre2" name="sifre2" placeholder="Şifre Tekrar">
-            <button type="submit" name="onay" value="Kaydol">Kaydol</button>
-        </form>
-        <p style="margin-top: 15px; text-align: center;">
+    <main class="kayitForm">
+         <div class="leftBox">
+            <h1 class="title">Aramıza Hoş Geldin !</h1>
+            <p class="inf">Arkadaşlarının yazılarına göz atmayı unutma :)</p>
+            <p class="inf">Senin de yazılarını görmek için sabırsızlanıyoruz!</p>
+        </div>
+        <div class="rightBox">
+            <form action="php/kayitkontrol.php" method="post" class="kayit-form">
+
+                <label for="ad">Adınız:</label>
+                <input type="text" id="ad" name="ad" placeholder="Adınız" required>
+
+                <label for="soyad">Soyadınız:</label>
+                <input type="text" id="soyad" name="soyad" placeholder="Soyadınız" required>
+
+                <p>Cinsiyetiniz:</p>
+                <div class="radio-grup">
+                    <label><input type="radio" name="gen" value="XX"> Kadın</label>
+                    <label><input type="radio" name="gen" value="XY"> Erkek</label>
+                    <label><input type="radio" name="gen" value="XYX"> Diğer</label>
+                </div>
+
+                <label for="kullanici">Kullanıcı Adınız:</label>
+                <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız" required>
+
+                <label for="eposta">E-postanız:</label>
+                <input type="email" id="eposta" name="mail" placeholder="E-posta" required>
+
+                <label for="sifre1">Şifreniz:</label>
+                <input type="password" id="sifre1" name="sifre1" placeholder="Şifre" required>
+
+                <label for="sifre2">Şifrenizi tekrar giriniz:</label>
+                <input type="password" id="sifre2" name="sifre2" placeholder="Şifre Tekrar" required>
+
+                <button type="submit" class="buton">Kaydol</button>
+            </form>
+            <p style="margin-top: 15px; text-align: center;">
             Zaten hesabınız var mı? 
-            <a href="giris.html" style="color: #FFA500; text-decoration: none; font-weight: bold;">Giriş Yap</a>
-        </p>
+                <a href="giris.html" style="color: #FFA500; text-decoration: none; font-weight: bold;">Giriş Yap</a>
+            </p>
+        </div>
+        
     </main>
 </body>
 </html>
