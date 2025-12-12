@@ -15,12 +15,15 @@
             <div class="box-left">
                 <h1>Tekrardan Hoşgeldin !</h1>
                 <p>Arkadaşlarının yazılarına da göz atmayı unutma !</p>
-               <button type="submit" form="login" class="loginButton" method="post">Giriş Yap</button> 
+               <p style="margin-top: 15px; text-align: center;">
+                    Hesabınız yok mu ?
+                </p>
+                <a href="kayit.html" style="color: #FFA500; text-decoration: none; font-weight: bold;"> Kayıt ol</a> 
             </div>
             
             <div class="box-right">
                 <p class="boxtitle">Yeni yazılarını görmek için sabırsızlanıyoruz!</p>
-                <form id="login" action="php/giriskarsilama.php" method="get">
+                <form id="login" action="php/giriskarsilama.php" method="post">
                     <div class="inputs">
                         <label for="kullanici">Kullanıcı Adınız:</label>
                         <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız">
@@ -29,9 +32,7 @@
                     <div class="inputs">
                         <label for="sifre">Şifreniz:</label>
                         <input type="password" id="sifre" name="sifre" placeholder="Şifre">
-                        <p style="margin-top: 15px; text-align: center;">
-                            Hesabınız yok mu ?<a href="kayit.html" style="color: #FFA500; text-decoration: none; font-weight: bold;"> Kayıt ol</a>
-                        </p>
+                        <button type="submit" form="login" class="loginButton">Giriş Yap</button>
                     </div>
                 </form>
             </div>

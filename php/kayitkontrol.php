@@ -15,6 +15,7 @@ if(strlen($kullanici < 3)){
   exit;
 }
 
+
 //eposta kontrolu
 
 if(!filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL)){

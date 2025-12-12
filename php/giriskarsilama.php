@@ -1,29 +1,38 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <title>Giriş Başarılı</title>
-</head>
-<body>
+<?php
+session_start();
+if (empty($_POST)){
+    echo "giriş yapmadınız.";
+    header("Location:/giris.html");
+    echo "<p><a href='giris.html'>Giriş Formu</a></p>";
+    exit;
+}
+try {
+  $vt = new PDO("mysql:dbname=litblog;host=localhost;charset=utf8","root", "");
+  $vt->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+  echo $e->getMessage();
+}
 
-    <h2>Hoş Geldiniz!</h2>
 
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $kullanici = htmlspecialchars($_POST['kullanici'] ?? 'Bilinmiyor');
-        
-        header("Refresh: 3; url=kayit.html");
-        echo "<p><a href='kayit.html'>Kayıt Formu</a></p>";
-    } else {
-        echo "<p>Form verileri alınamadı.</p>";
-    }
+// Sorgular ve diğer işlemler burada...
+$sql = "select * from uye where kullaniciAd = :kullaniciAd";
+$ifade = $vt->prepare($sql);
+$ifade->execute(
+    [":kullaniciAd" => $_POST["kullanici"]]
+);
 
-    
+$kayit = $ifade->fetch(PDO::FETCH_ASSOC);
 
-    ?>
+if($kayit == FALSE){
+    echo "kullanici adı ve ya şifre hatalı.";
+    header("Refresh: 2; url=/giris.html");
+    echo "<p><a href='giris.html'>Giriş Formu</a></p>";
+    exit;
+}
 
-    <a href="posts.php">
-        Post sayfasına git.
-    </a>
-</body>
-</html>
+if (!password_verify( $_POST["sifre"], $kayit["sifre"])) {
+    echo "Kullanıcı adı veya şifre hatalı!";
+    header("Refresh: 2; url=/giris.html");
+    echo "<p><a href='giris.html'>Giriş Formu</a></p>";
+    exit;
+}

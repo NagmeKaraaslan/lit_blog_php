@@ -13,7 +13,7 @@ try{
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     else{
-        $error = "Veritabanı sorgusu oluşturulurken bir ahat oluştu.";
+        $error = "Veritabanı sorgusu oluşturulurken bir hata oluştu.";
     }
 }
 catch (\PDOException $e){
