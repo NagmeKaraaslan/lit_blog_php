@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (isset($_SESSION['kullaniciAd']) || empty($_SESSION['kullaniciAd'])) {
+    header("Refresh:3,Location: giris.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,25 +14,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yeni Gönderi</title>
-    <link rel="stylesheet" href="staticfiles/newpost.css">
+    <link rel="stylesheet" href="staticfiles/form.css">
 </head>
 
 <body>
-    <div class="container">
+    <form id="postForm" class="container" action="php/posts.php" method="POST">
         <div class="left-panel">
             <p>Yeni yazını okumak için sabırsızlanıyoruz!</p>
+            <button class="button" id="submitBtn" type="submit" tabindex="2">Gönder!</button>
+            <button class="button" type="button" id="cancel" onclick="openModal()" tabindex="3">Vazgeçtim.</button>
         </div>
         <div class="right-panel">
-            <form action="php/posts.php" method="POST">
-                <label for="titleArea">Başlık:</label>
-                <input type="text" name="titleArea" id="titleArea" placeholder="Başlık:">
-                <label for="contentArea">İçerik:</label>
-                <input name="content" for="contentArea" rows="10" required></input>
-                <button class="button" type="button" id="cancel" onclick="openModal()">Vazgeçtim.</button>
-                <button class="button" id="submitBtn" type="submit">Gönder!</button>
-            </form>
+            <label for="contentArea">Yeni yazım:</label>
+            <textarea name="content" id="contentArea" rows="10" required tabindex="1"></textarea>
         </div>
-    </div>
+    </form>
 
     <div class="modal" id="modal">
         <div class="modal-content">
@@ -48,14 +53,14 @@
             const cancelBtn = document.getElementById("sureCancel");
             if (cancelBtn) {
                 cancelBtn.addEventListener("click", () => {
-                    window.location.href = "posts.php"; 
+                    window.location.href = "php/posts.php"; 
                 });
             }
             
         });
 
         function openModal() {
-            document.getElementById("modal").style.display = "block";
+            document.getElementById("modal").style.display = "flex";
         }
 
         function closeModal() {

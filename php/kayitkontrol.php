@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 if(empty($_POST["kullanici"])) {
     echo "Kullanici adı girilmemeiş!";
     header("Refresh: 3; url=kayit.html");

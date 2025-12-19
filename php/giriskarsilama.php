@@ -2,7 +2,7 @@
 session_start();
 if (empty($_POST)){
     echo "giriş yapmadınız.";
-    header("Location:/giris.html");
+    header("Refresh: 3,Location:/giris.html");
     echo "<p><a href='giris.html'>Giriş Formu</a></p>";
     exit;
 }
@@ -36,3 +36,9 @@ if (!password_verify( $_POST["sifre"], $kayit["sifre"])) {
     echo "<p><a href='giris.html'>Giriş Formu</a></p>";
     exit;
 }
+
+// Giriş başarılı
+echo "Başarıyla giriş yaptınız";
+header("Refresh: 2; url=/php/posts.php");
+echo "<p><a href='posts.php'>Post sayfasına gidin</a></p>";
+exit;
