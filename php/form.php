@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-if (isset($_SESSION['kullaniciAd']) || empty($_SESSION['kullaniciAd'])) {
-    header("Refresh:3,Location: giris.php");
+if (!isset($_SESSION['kullaniciAd']) || empty($_SESSION['kullaniciAd'])) {
+    header("Refresh:3; url=/giris.html");
+    echo "giriş yapmadınız.";
     exit();
 }
 ?>

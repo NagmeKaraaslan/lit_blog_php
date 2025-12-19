@@ -1,9 +1,9 @@
 <?php
 session_start();
 if (empty($_POST)){
+    header("Refresh: 3; url=/giris.html");
     echo "giriş yapmadınız.";
-    header("Refresh: 3,Location:/giris.html");
-    echo "<p><a href='giris.html'>Giriş Formu</a></p>";
+    echo "<p><a href='/giris.html'>Giriş Formu</a></p>";
     exit;
 }
 try {
@@ -24,21 +24,21 @@ $ifade->execute(
 $kayit = $ifade->fetch(PDO::FETCH_ASSOC);
 
 if($kayit == FALSE){
-    echo "kullanici adı ve ya şifre hatalı.";
     header("Refresh: 2; url=/giris.html");
-    echo "<p><a href='giris.html'>Giriş Formu</a></p>";
+    echo "kullanici adı ve ya şifre hatalı.";
+    echo "<p><a href='/giris.html'>Giriş Formu</a></p>";
     exit;
 }
 
 if (!password_verify( $_POST["sifre"], $kayit["sifre"])) {
+    header("Refresh: ; url=/giris.html");
     echo "Kullanıcı adı veya şifre hatalı!";
-    header("Refresh: 2; url=/giris.html");
-    echo "<p><a href='giris.html'>Giriş Formu</a></p>";
+    echo "<p><a href='/giris.html'>Giriş Formu</a></p>";
     exit;
 }
 
 // Giriş başarılı
-echo "Başarıyla giriş yaptınız";
 header("Refresh: 2; url=/php/posts.php");
-echo "<p><a href='posts.php'>Post sayfasına gidin</a></p>";
+echo "Başarıyla giriş yaptınız";
+echo "<p><a href='lit_blog_php/php/posts.php'>Post sayfasına gidin</a></p>";
 exit;
