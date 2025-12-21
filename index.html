@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edebiyat Blogu</title>
     <link rel="stylesheet" href="staticfiles/index.css">
 </head>
 <body>
     <div class="panel1">
-        <object data="staticfiles/images/image1.svg" type="image/svg+xml"></object>
-        <button onclick="window.location.href='kayit.html'">Kayıt Ol!</button>
+        <div class="img1">
+            <object data="staticfiles/images/image1.svg" type="image/svg+xml"></object>
+        </div>
+        <div class="sign-btn">
+            <button onclick="window.location.href='kayit.html'">Kayıt Ol!</button>
+        </div>
     </div>
 
     <div class="panel2">
-        <p>
-            Ebedi edebiyat blog sayfasına hoşgeldin !
+        <div class="content-wrapper">
+            <p>
+                Ebedi edebiyat blog sayfasına hoşgeldin !
 
-            Seni burada görmek çok güzel. Yazılarına hayat vermek , insanlara duygularını kaleminle anlatmak ve paylaşmak için doğru yerdesin. Gel ve berbaer yazalım. Arkadaşlarımızın yazdıklarında kendimizi bulalım, kendimizi kağıda dökelim, yaşanmışlıklara şahit olalım, arkadaşlarımız bizim yazımızda kendinden izler bulsun.
+                Seni burada görmek çok güzel. Yazılarına hayat vermek , insanlara duygularını kaleminle anlatmak ve paylaşmak için doğru yerdesin. Gel ve berbaer yazalım. Arkadaşlarımızın yazdıklarında kendimizi bulalım, kendimizi kağıda dökelim, yaşanmışlıklara şahit olalım, arkadaşlarımız bizim yazımızda kendinden izler bulsun.
 
-            Alt tarafta bulunan kaydol butonunu kullanrak blog sayfamızın yeni üyesi olabilirsin. Kalemin ve hayal gücün ile kal !
-        </p>
+                Alt tarafta bulunan kaydol butonunu kullanrak blog sayfamızın yeni üyesi olabilirsin. Kalemin ve hayal gücün ile kal !
+            </p>
+        </div>
     </div>
-        <button onclick="window.location.href='php/giriskarsilama.php'">Giriş Yap</button>
-        <object data="staticfiles/images/image2.svg"></object>
-    <div class="panel3">
 
+    <div class="panel3">
+        <button class="login-btn" onclick="window.location.href='giris.html'">Giriş Yap</button>
+        <div class="decorative-image">
+            <object data="staticfiles/images/image2.svg" type="image/svg+xml"></object>
+        </div>
     </div>
 </body>
 </html>

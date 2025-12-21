@@ -1,13 +1,13 @@
 <?php
     include 'db.php';
 
-    if(isset($_GET['kullanici'])){
-        $kullaniciAd = htmlentities($_GET['kullanici']);
-        $stmt = $conn->prepare("SELECT title, content, created_at FROM posts WHERE kullaniciAd = :kullanici ORDER BY created_at DESC");
+    if(isset($_GET['kullaniciAd'])){
+        $kullaniciAd = htmlentities($_GET['kullaniciAd']);
+        $stmt = $conn->prepare("SELECT title, content, created_at FROM posts WHERE kullaniciAd = :kullaniciAd ORDER BY created_at DESC");
     }
 
     if($stmt){
-        $stmt -> bind_param(':kullanici', $kullaniciAd);
+        $stmt -> bind_param(':kullaniciAd', $kullaniciAd);
         $stmt -> execute();
 
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);

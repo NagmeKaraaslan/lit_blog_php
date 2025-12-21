@@ -1,5 +1,9 @@
 <?php
 session_start();
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (empty($_POST)){
     header("Refresh: 3; url=/giris.html");
     echo "giriş yapmadınız.";
@@ -13,32 +17,38 @@ try {
   echo $e->getMessage();
 }
 
-
+$kullanici = trim($_POST["kullaniciAd"]);
 // Sorgular ve diğer işlemler burada...
 $sql = "select * from uye where kullaniciAd = :kullaniciAd";
 $ifade = $vt->prepare($sql);
 $ifade->execute(
-    [":kullaniciAd" => $_POST["kullanici"]]
+    [":kullaniciAd" => $kullanici]
 );
 
 $kayit = $ifade->fetch(PDO::FETCH_ASSOC);
 
-if($kayit == FALSE){
-    header("Refresh: 2; url=/giris.html");
+if($kayit === false){
+    header("Refresh: 2; url=../giris.html");
     echo "kullanici adı ve ya şifre hatalı.";
-    echo "<p><a href='/giris.html'>Giriş Formu</a></p>";
+    echo "<p><a href='../giris.html'>Giriş Formu</a></p>";
     exit;
 }
 
-if (!password_verify( $_POST["sifre"], $kayit["sifre"])) {
-    header("Refresh: ; url=/giris.html");
+$passwordMatch = password_verify($_POST["sifre"], $kayit["sifre"]);
+echo "<p>Password verification: " . ($passwordMatch ? 'MATCH' : 'NO MATCH') . "</p>";
+
+if (!$passwordMatch) {
+
+    header("Refresh: 3; url=../giris.html");
     echo "Kullanıcı adı veya şifre hatalı!";
-    echo "<p><a href='/giris.html'>Giriş Formu</a></p>";
+    echo "<p><a href='../giris.html'>Giriş Formu</a></p>";
     exit;
 }
 
+$_SESSION['kullaniciAd'] = htmlentities($kayit['kullaniciAd']);
+$_SESSION['ad'] = htmlentities($kayit['ad']);
 // Giriş başarılı
-header("Refresh: 2; url=/php/posts.php");
+header("Refresh:3; url=posts.php");
 echo "Başarıyla giriş yaptınız";
-echo "<p><a href='lit_blog_php/php/posts.php'>Post sayfasına gidin</a></p>";
-exit;
+echo "<p><a href='posts.php'>Post sayfasına gidin</a></p>";
+?>

@@ -2,34 +2,46 @@
 session_start();
 
 if (!isset($_SESSION['kullaniciAd']) || empty($_SESSION['kullaniciAd'])) {
-    header("Refresh:3; url=/giris.html");
+    header("Refresh:3; url=../giris.html");
     echo "giriş yapmadınız.";
     exit();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yeni Gönderi</title>
-    <link rel="stylesheet" href="staticfiles/form.css">
+    <link rel="stylesheet" href="../staticfiles/form.css">
 </head>
 
 <body>
-    <form id="postForm" class="container" action="php/posts.php" method="POST">
+    <div class="form-container">
         <div class="left-panel">
-            <p>Yeni yazını okumak için sabırsızlanıyoruz!</p>
-            <button class="button" id="submitBtn" type="submit" tabindex="2">Gönder!</button>
-            <button class="button" type="button" id="cancel" onclick="openModal()" tabindex="3">Vazgeçtim.</button>
+            <img src="../staticfiles/images/image5.svg" alt="Yazı yazma alanı" class="writing-illustration">
+            <p class="welcome-text">Yeni yazını okumak için sabırsızlanıyoruz!</p>
+            <div class="button-group">
+                <button class="button submit-btn" type="submit" form="postForm">Gönder!</button>
+                <button class="button cancel-btn" type="button" onclick="openModal()">Vazgeçtim</button>
+            </div>
         </div>
+        
         <div class="right-panel">
-            <label for="contentArea">Yeni yazım:</label>
-            <textarea name="content" id="contentArea" rows="10" required tabindex="1"></textarea>
+            <form id="postForm" action="posts.php" method="POST">
+                <div class="form-group">
+                    <label for="title">Başlık:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="contentArea">Yeni yazım:</label>
+                    <textarea name="content" id="contentArea" rows="10" required></textarea>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
@@ -54,7 +66,7 @@ if (!isset($_SESSION['kullaniciAd']) || empty($_SESSION['kullaniciAd'])) {
             const cancelBtn = document.getElementById("sureCancel");
             if (cancelBtn) {
                 cancelBtn.addEventListener("click", () => {
-                    window.location.href = "php/posts.php"; 
+                    window.location.href = "posts.php"; 
                 });
             }
             

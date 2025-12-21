@@ -18,21 +18,21 @@
                <p style="margin-top: 15px; text-align: center;">
                     Hesabınız yok mu ?
                 </p>
-                <a href="kayit.html" style="color: #FFA500; text-decoration: none; font-weight: bold;"> Kayıt ol</a> 
+                <a tabindex="4" href="kayit.html" style="color: #FFA500; text-decoration: none; font-weight: bold;"> Kayıt ol</a> 
             </div>
             
             <div class="box-right">
                 <p class="boxtitle">Yeni yazılarını görmek için sabırsızlanıyoruz!</p>
                 <form id="login" action="php/giriskarsilama.php" method="post">
                     <div class="inputs">
-                        <label for="kullanici">Kullanıcı Adınız:</label>
-                        <input type="text" id="kullanici" name="kullanici" placeholder="Kullanıcı Adınız">
+                        <label for="kullaniciAd">Kullanıcı Adınız:</label>
+                        <input tabindex="1" type="text" id="kullaniciAd" name="kullaniciAd" placeholder="Kullanıcı Adınız">
                     </div>
                     
                     <div class="inputs">
                         <label for="sifre">Şifreniz:</label>
-                        <input type="password" id="sifre" name="sifre" placeholder="Şifre">
-                        <button type="submit" form="login" class="loginButton">Giriş Yap</button>
+                        <input tabindex="2" type="password" id="sifre" name="sifre" placeholder="Şifre">
+                        <button tabindex="3" type="submit" form="login" class="loginButton">Giriş Yap</button>
                     </div>
                 </form>
             </div>

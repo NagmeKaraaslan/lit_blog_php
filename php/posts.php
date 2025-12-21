@@ -1,13 +1,18 @@
 <?php
 session_start();
 
+$kayit = [
+    'kullaniciAd' => isset($_SESSION['kullaniciAd']) ? htmlentities($_SESSION['kullaniciAd'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false) : '',
+    'ad' => isset($_SESSION['ad']) ? htmlentities($_SESSION['ad'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false) : ''
+];
+
 if (!isset($_SESSION['kullaniciAd'])) {
-    header("Location: giris.html");
+    header("Refresh:3; url=/giris.html");
     exit();
 }
 
 
-include '../db.php';
+include 'db.php';
 
 $posts = [];
 $error = null;
@@ -23,9 +28,9 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
         $title = $_POST['title'];
 
         if(!empty($content)) {
-            $stmt = $conn->prepare("INSERT INTO posts (kullaniciAd, title, content, created_at) VALUES(:kullaniciAd, :title, :content, NOW())");
+            $stmtIn = $conn->prepare("INSERT INTO posts (kullaniciAd, title, content, created_at) VALUES(:kullaniciAd, :title, :content, NOW())");
 
-            $stmt->execute([
+            $stmtIn->execute([
                 ':kullaniciAd' => $kullaniciAd,
                 ':title' => $title,
                 ':content' => $content
@@ -41,12 +46,23 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
     }
     }
 
-    if($stmt){
-        $stmt->execute();
-        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    try {
+        $stmtSelect = $conn->prepare("SELECT * FROM posts ORDER BY created_at DESC");
+        $stmtSelect -> execute();
+        $rawPosts = $stmtSelect->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Tüm post verilerini bir kere işle
+        $posts = array_map(function($post) {
+            return [
+                'kullaniciAd' => htmlentities($post['kullaniciAd'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8', false),
+                'title' => htmlentities($post['title'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8', false),
+                'content' => htmlentities($post['content'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8', false),
+                'created_at' => $post['created_at'] ?? ''
+            ];
+        }, $rawPosts);
     }
-    else{
-        $error = "Veritabanı sorgusu oluşturulurken bir hata oluştu.";
+    catch(PDOException $e){
+        $error = "listeleme hatası" . $e->getMessage();
     }
         
 ?>
@@ -60,8 +76,13 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
     <link rel="stylesheet" href="../staticfiles/posts.css">
 </head>
 <body>
-    <div class="profil-button-container">
-        <a href="../profil.html"><button class="profil-button">Profilim</button></a>
+    <div class="button-container" style="display: flex; gap: 10px; padding: 10px;">
+        <div class="profil-button-container">
+            <a href="../profil.html"><button class="profil-button">Profilim</button></a>
+        </div>
+        <div class="new-button-container">
+            <a href="form.php"><button class="profil-button">Yazacaklarım Var!</button></a>
+        </div>
     </div>
     
     <main class="container">
@@ -69,7 +90,10 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
         <div class="blur-light" id="blur2"></div>
         
         <div class="column1">
-            <p class="son_p">Son Paylaşımlar -</p>
+            <p class="son_p">
+                <?php echo htmlentities($kayit['ad'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false) ?> için
+                Son Paylaşımlar~
+            </p>
             <img src="../staticfiles/images/image8.svg" class="line_image" alt="ART HAS NO RULES">
         </div>
 
@@ -82,14 +106,14 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
                             <div class="post-header">
                                 <div class="kullaniciPp"></div> 
                                 
-                                <span class="kullaniciAd"><?= htmlspecialchars($post['kullaniciAd']) ?></span>
+                                <span class="kullaniciAd"><?= $post['kullaniciAd'] ?></span>
                                 
-                                <span class="post-date"><?= htmlspecialchars($post['created_at']) ?></span>
+                                <span class="post-date"><?= $post['created_at'] ?></span>
                             </div>
 
                             <div class="post-body">
-                                <span class="post-title"><?= htmlspecialchars($post["title"]) ?></span>
-                                <span class="post-content"><?= htmlspecialchars($post["content"])?></span>
+                                <span class="post-title"><?= $post["title"] ?></span>
+                                <span class="post-content"><?= nl2br($post["content"]) ?></span>
                            </div>
                         </div>  
                     </div>
@@ -97,7 +121,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
             <?php else:?>
                 <p class="error_msg">
                     <?php if($error):?>
-                        <?php htmlspecialchars($error)?>
+                        <?php echo htmlentities($error, ENT_QUOTES | ENT_HTML5, 'UTF-8', false) ?>
                     <?php else:?>
                         Henüz hiç gönderi bulunmamaktadır.
                     <?php endif;?>

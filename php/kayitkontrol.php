@@ -1,14 +1,14 @@
 <?php
 session_start();
-if(empty($_POST["kullanici"])) {
+if(empty($_POST["kullaniciAd"])) {
     header("Refresh: 3; url=kayit.html");
     echo "Kullanici adı girilmemiş!";
     echo "<p><a href='../kayit.html'>Kayıt Formu</a></p>";
     exit;
 }
 
-$kullanici = trim($_POST["kullanici"]);
-if(strlen($kullanici < 3)){
+$kullanici = trim($_POST["kullaniciAd"]);
+if(strlen($kullanici) < 3){
   header("Refresh: 3; url=kayit.html");
   echo "Kullanıcı isminiz 3karakterden fazla olamlı.";
   echo "<p><a href='kayitform.html'>Kayıt Formu</a></p>";
@@ -70,11 +70,11 @@ try {
 
     $ifade = $vt->prepare($sql);
     $ifade->execute([
-        ":kullaniciAd" => $_POST["kullanici"],
+        ":kullaniciAd" => $_POST["kullaniciAd"],
         ":ad"          => $_POST["ad"],
         ":soyad"       => $_POST["soyad"],
         ":mail"        => $_POST["mail"],
-        ":sifre"       => password_hash($_POST["sifre1"], PASSWORD_DEFAULT),
+        ":sifre"       => $sifre,
         ":cinsiyet"    => $_POST["gen"]
     ]);
     echo "Kayıt başarılı, giriş sayfasına yönlendiriliyorsunuz...";
