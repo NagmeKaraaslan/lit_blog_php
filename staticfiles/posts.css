@@ -127,6 +127,10 @@ body {
     background-color: #FFEAB5;
 }
 
+.line_image{
+    object-fit:cover ;
+}
+
 .son_p {
     color: #888;
     font-size: 0.9rem;
@@ -167,9 +171,11 @@ body {
 }
 
 .column1,
-.column2,
 .column3 {
     z-index: 2;
+}
+.column1{
+    z-index: 3;
 }
 
 .line_image {

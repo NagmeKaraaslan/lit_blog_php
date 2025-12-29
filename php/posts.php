@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $kayit = [
     'kullaniciAd' => isset($_SESSION['kullaniciAd']) ? htmlentities($_SESSION['kullaniciAd'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false) : '',
     'ad' => isset($_SESSION['ad']) ? htmlentities($_SESSION['ad'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false) : ''
@@ -12,16 +16,20 @@ if (!isset($_SESSION['kullaniciAd'])) {
 }
 
 
-include 'db.php';
+require_once "db.php";
 
 $posts = [];
 $error = null;
 
 if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
+    // Debug: Log the POST data
+    error_log("POST Data: " . print_r($_POST, true));
+    
     if (!isset($_SESSION['kullaniciAd'])) {
         header("Location: ../giris.html?hata=yetkisiz");
         exit();
     }
+    
     try {
         $content = trim($_POST['content']);
         $kullaniciAd = $_SESSION['kullaniciAd'];
@@ -36,7 +44,9 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
                 ':content' => $content
             ]);
 
-            header("Location: posts.php");
+            //header("Location: posts.php");
+            var_dump($result);
+            var_dump($stmtIn->errorInfo());
             exit();
             }
     }
