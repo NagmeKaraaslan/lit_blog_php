@@ -10,16 +10,14 @@ $kayit = [
     'ad' => isset($_SESSION['ad']) ? htmlentities($_SESSION['ad'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false) : ''
 ];
 
-if (!isset($_SESSION['kullaniciAd'])) {
-    header("Refresh:3; url=/giris.html");
-    exit();
-}
-
-
 require_once "db.php";
+if (!isset($conn)) {
+    die("Kritik Hata: Veritabanı bağlantı dosyası ($conn) yüklenemedi!");
+}
 
 $posts = [];
 $error = null;
+
 
 if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
     // Debug: Log the POST data
@@ -44,6 +42,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
                 ':content' => $content
             ]);
 
+            header("Location: posts.php");
             //header("Location: posts.php");
             var_dump($result);
             var_dump($stmtIn->errorInfo());
@@ -60,7 +59,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
         $stmtSelect = $conn->prepare("SELECT * FROM posts ORDER BY created_at DESC");
         $stmtSelect -> execute();
         $rawPosts = $stmtSelect->fetchAll(PDO::FETCH_ASSOC);
-        
+
         // Tüm post verilerini bir kere işle
         $posts = array_map(function($post) {
             return [
@@ -74,7 +73,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
     catch(PDOException $e){
         $error = "listeleme hatası" . $e->getMessage();
     }
-        
+
 ?>
 
 <!DOCTYPE html>
@@ -94,16 +93,20 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
             <a href="form.php"><button class="profil-button">Yazacaklarım Var!</button></a>
         </div>
     </div>
-    
+
     <main class="container">
         <div class="blur-light" id="blur1"></div>
         <div class="blur-light" id="blur2"></div>
-        
+
         <div class="column1">
+            <?php if(isset($kayit) && !empty($kayit['ad'])):?>
             <p class="son_p">
-                <?php echo htmlentities($kayit['ad'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false) ?> için
+                <?php echo htmlentities($kayit['ad'], ENT_QUOTES | ENT_HTML5, 'UTF-8', false);?> için
                 Son Paylaşımlar~
             </p>
+            <?php else: ?>
+                <p>Misafir için Son Paylaşımlar~</p>
+           <?php endif; ?> 
             <img src="../staticfiles/images/image8.svg" class="line_image" alt="ART HAS NO RULES">
         </div>
 
@@ -115,9 +118,9 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
                         <div class="post-childbox">
                             <div class="post-header">
                                 <div class="kullaniciPp"></div> 
-                                
-                                <span class="kullaniciAd"><?= $post['kullaniciAd'] ?></span>
-                                
+
+                                <span class="kullaniciAd"><?= $post['kullaniciAd'] ?>  <i style="font-weight: 100;">> Yorum eklemek için tıklayın</i></span>
+
                                 <span class="post-date"><?= $post['created_at'] ?></span>
                             </div>
 
@@ -146,8 +149,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['content'])) {
             </div>
         </div>
     </main>
-    
+
     <img src="../staticfiles/images/image3.svg" class="canBlurImage hand-writing" alt="Hand Writing">
     <script src="../staticfiles/posts.js"></script>
 </body>
-</html>
