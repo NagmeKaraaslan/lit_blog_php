@@ -29,9 +29,10 @@ if (!$post) { die("Post bulunamadı."); }
     $com_stmt = $conn->prepare("SELECT * FROM yorum WHERE post_id = ? ORDER BY created_at DESC");
     $com_stmt->execute([$post_id]);
     $comments = $com_stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
 
-    if (count($comments)>0):
-        foreach($comments as $c): ?>
+    <?php if (count($comments)>0): ?>
+        <?php foreach($comments as $c): ?>
         <div class="post-mainbox post comment-item">
                     <div class="post-childbox">
                         <div class="post-header">
@@ -45,9 +46,22 @@ if (!$post) { die("Post bulunamadı."); }
                             </span>
                         </div>
                     </div>
-                </div>
-                <?php endforeach;
-            else: ?>
-                <p class="no-comment">Henüz yorum yapılmamış.</p>
-            <?php endif; ?>      
+        </div> <?php endforeach;?>
+    <?php else: ?>
+        <p class="no-comment">Henüz yorum yapılmamış.</p>
+    <?php endif; ?>
+
+    <hr>
+    <?php if(isset($_SESSION['kullaniciAd'])): ?>
+        <div class="post-mainbox comment-form-box">
+            <h4 class="form-title">Yorum Yaz</h4>
+            <form action="yorumkaydet.php" method="POST" class="Comment-from">
+                <input type="hidden" name="post_id" value="<?=$post_id?>">
+                <textarea name="yorum" class="comment-textarea" placeholder="Düşüncelerini buraya yazabilirsin." required></textarea>
+                <button type="submit" class="commentSubButton">Gönder</button>
+            </form>
+        </div>
+    <?php else: ?>
+        <div class="loginWarn">Yorum yapmak için giriş yapmalısınız.</div>
+    <?php endif; ?>
 </div>

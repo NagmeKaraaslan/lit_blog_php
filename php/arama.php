@@ -23,6 +23,7 @@ if(!empty($_GET['terim']))
     $rawPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $posts = array_map(function ($post) {
     return [
+        'id' => $post['id'],
         'kullaniciAd' => htmlentities($post['kullaniciAd'], ENT_QUOTES | ENT_HTML5, 'UTF-8'),
         'title' => htmlentities($post['title'], ENT_QUOTES | ENT_HTML5, 'UTF-8'),
         'content' => htmlentities($post['content'], ENT_QUOTES | ENT_HTML5, 'UTF-8'),
