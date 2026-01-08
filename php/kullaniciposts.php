@@ -1,5 +1,7 @@
 <?php
+    session_start();
     include 'db.php';
+    include "inc/ustmenu.inc.php";
 
     if(isset($_GET['kullaniciAd'])){
         $kullaniciAd = htmlentities($_GET['kullaniciAd']);
@@ -7,9 +9,7 @@
     }
 
     if($stmt){
-        $stmt -> bind_param(':kullaniciAd', $kullaniciAd);
-        $stmt -> execute();
-
+        $stmt -> execute(['kullaniciAd' => $kullaniciAd]);
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
     }

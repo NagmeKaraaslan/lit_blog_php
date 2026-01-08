@@ -29,33 +29,67 @@ body::before {
     pointer-events: none;
 }
 
-.profil-button-container {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 100;
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 24px;
+    background-color: #fff3cc;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
-.profil-button {
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.search-box input {
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.85rem;
+}
+
+.search-box button {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 6px;
+    border: none;
     background-color: #f48f47;
     color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
-    font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.profil-button:hover {
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 14px;
+    background-color: #f48f47;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.nav a:hover {
     background-color: #e67e22;
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-}
-
-.profil-button-container a {
-    text-decoration: none;
 }
 
 
@@ -84,6 +118,9 @@ body::before {
 .column2,
 .column3 {
     max-width: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
 }
 
 .container {
@@ -198,7 +235,7 @@ body {
     padding-top: 1.5rem;
 }
 
-.button button {
+.button button{
     background-color: #f48f47;
     color: white;
     border: none;
@@ -300,19 +337,6 @@ body {
     line-height: 1.6;
 }
 
-.post_title {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    font-size: 14px;
-    color: #888;
-}
-
-.post_content {
-    margin: 0 0 0.8rem 0;
-    font-size: 1.3rem;
-    color: #DDD;
-}
 
 .blur-light {
     position: fixed;
@@ -337,6 +361,30 @@ body {
     right: 10%;
     animation-delay: 5s;
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background-color: #fff3cc;
+    position: relative;
+    z-index: 10;
+}
+
+.search-box input {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.nav a {
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
 
 @keyframes moveBlur {
     0% {

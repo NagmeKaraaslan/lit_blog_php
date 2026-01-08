@@ -101,7 +101,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    z-index: 5; /* Görselin önünde kalması için */
+    z-index: 15; /* Görselin önünde kalması için */
     position: relative;
 }
 
@@ -134,6 +134,8 @@ body {
     min-height: 350px;
     resize: none;
 }
+
+
 
 /* --- 4. MODAL (Koyu Tasarım) --- */
 .modal {
